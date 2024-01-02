@@ -1,0 +1,6 @@
+cluster = "dev"
+
+[grpc_server]
+    enable      = true
+    port        = 9729
+    protocol    = "tcp"

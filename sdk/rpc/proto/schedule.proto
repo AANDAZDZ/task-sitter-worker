@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "task-sitter-worker/rpc/proto";
+
+service Schedule {
+  rpc ScheduleTask (ScheduleTaskReq) returns (ScheduleTaskResp);
+}
+
+message ScheduleTaskReq {
+  string  TaskName      = 1;
+  string  TaskContext   = 2;
+  int64   BeginTime     = 3;
+  int64   EndTime       = 4;
+  int32   RetryNum      = 5;
+  int64   RetryInterval = 6;
+  string  BizName       = 7;
+}
+
+message ScheduleTaskResp {
+  string Message = 1;
+}

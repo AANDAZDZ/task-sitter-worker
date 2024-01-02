@@ -1,6 +1,8 @@
 package main
 
-import "task-sitter-worker/sdk"
+import (
+	"task-sitter-worker/sdk/worker"
+)
 
 type BasicTask struct {
 }
@@ -21,7 +23,7 @@ func (t *BasicTask) ErrorHandle(err error) {
 	return
 }
 
-func (t *BasicTask) SetBase(task *sdk.TaskBase) {
+func (t *BasicTask) SetBase(task *worker.TaskBase) {
 	return
 }
 
@@ -31,5 +33,5 @@ func (t *BasicTask) GetType() string {
 
 func main() {
 	basic := &BasicTask{}
-	sdk.RegisterTrigger(basic)
+	worker.RegisterTrigger(basic)
 }

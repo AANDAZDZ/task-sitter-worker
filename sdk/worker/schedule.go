@@ -1,11 +1,6 @@
-package sdk
+package worker
 
-// Init 初始化并启动 rpc 服务
-func Init() {
-}
-
-// Listener 监听 rpc 请求
-func Listener() {
+func ScheduleTask() {
 	req := &TaskBase{}
 	trigger := GetTrigger(req.TaskType)
 	trigger.SetBase(req)
