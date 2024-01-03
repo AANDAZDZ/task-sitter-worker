@@ -1,19 +1,25 @@
 package worker
 
-func ScheduleTask() {
-	req := &TaskBase{}
-	trigger := GetTrigger(req.TaskType)
-	trigger.SetBase(req)
-	err := trigger.Pretreatment()
+import "task-sitter-worker/sdk/model"
+
+func ScheduleTask(req *model.ScheduleTaskReq) (resp *model.ScheduleTaskResp) {
+	taskBase := transferTaskBase(req)
+	trigger := AcquireTriggerServer(taskBase)
+	err := trigger.Client.Pretreatment()
 	if err != nil {
-		trigger.ErrorHandle(err)
+		trigger.Client.ErrorHandle(err)
 	}
-	err = trigger.Executing()
+	err = trigger.Client.Executing()
 	if err != nil {
-		trigger.ErrorHandle(err)
+		trigger.Client.ErrorHandle(err)
 	}
-	err = trigger.Finish()
+	err = trigger.Client.Finish()
 	if err != nil {
-		trigger.ErrorHandle(err)
+		trigger.Client.ErrorHandle(err)
 	}
+	return
+}
+
+func transferTaskBase(req *model.ScheduleTaskReq) *model.TaskBase {
+	return nil
 }

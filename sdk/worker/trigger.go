@@ -1,10 +1,17 @@
 package worker
 
-var triggerMap map[string]TriggerInterface
+import "task-sitter-worker/sdk/model"
 
-type TaskBase struct {
-	TaskType    string
-	TaskContext string
+var triggerClientMap map[string]*TriggerClient
+
+type TriggerClient struct {
+	TaskType string
+	TriggerInterface
+}
+
+type TriggerServer struct {
+	Client   *TriggerClient
+	TaskBase *model.TaskBase
 }
 
 type TriggerInterface interface {
@@ -12,21 +19,21 @@ type TriggerInterface interface {
 	Executing() error
 	Finish() error
 	ErrorHandle(error)
-
-	SetBase(*TaskBase)
-	GetType() string
 }
 
-func RegisterTrigger(trigger TriggerInterface) {
-	if _, ok := triggerMap[trigger.GetType()]; ok {
+func RegisterTriggerClient(trigger *TriggerClient) {
+	if _, ok := triggerClientMap[trigger.TaskType]; ok {
 		return
 	}
-	triggerMap[trigger.GetType()] = trigger
+	triggerClientMap[trigger.TaskType] = trigger
 }
 
-func GetTrigger(taskType string) TriggerInterface {
-	if trigger, ok := triggerMap[taskType]; ok {
-		return trigger
+func AcquireTriggerServer(taskBase *model.TaskBase) (trigger *TriggerServer) {
+	if client, ok := triggerClientMap[taskBase.TaskType]; ok {
+		trigger = &TriggerServer{
+			Client:   client,
+			TaskBase: taskBase,
+		}
 	}
-	return nil
+	return
 }

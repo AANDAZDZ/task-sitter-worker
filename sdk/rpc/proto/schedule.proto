@@ -9,12 +9,13 @@ service Schedule {
 
 message ScheduleTaskReq {
   string  TaskName      = 1;
-  string  TaskContext   = 2;
-  int64   BeginTime     = 3;
-  int64   EndTime       = 4;
-  int32   RetryNum      = 5;
-  int64   RetryInterval = 6;
-  string  BizName       = 7;
+  string  TaskType      = 2;
+  string  TaskContext   = 3;
+  int64   BeginTime     = 4;
+  int64   EndTime       = 5;
+  int32   RetryNum      = 6;
+  int64   RetryInterval = 7;
+  string  BizName       = 8;
 }
 
 message ScheduleTaskResp {
