@@ -2,9 +2,9 @@ package rpc
 
 import (
 	"context"
+	"task-sitter-worker/sdk/core/service"
 	"task-sitter-worker/sdk/model"
 	proto2 "task-sitter-worker/sdk/rpc/proto"
-	"task-sitter-worker/sdk/worker"
 )
 
 type ScheduleServer struct {
@@ -21,7 +21,7 @@ func (s *ScheduleServer) ScheduleTask(ctx context.Context, req *proto2.ScheduleT
 		RetryInterval: req.RetryInterval,
 		BizName:       req.BizName,
 	}
-	handleResp := worker.ScheduleTask(handleReq)
+	handleResp := service.ScheduleTask(handleReq)
 	resp.Message = handleResp.Message
 	return resp, nil
 }

@@ -1,6 +1,8 @@
 package main
 
-import "task-sitter-worker/sdk/worker"
+import (
+	"task-sitter-worker/sdk/core/schedule"
+)
 
 type BasicTask struct {
 }
@@ -23,7 +25,7 @@ func (t *BasicTask) ErrorHandle(err error) {
 
 func main() {
 	basic := &BasicTask{}
-	worker.RegisterTriggerClient(&worker.TriggerClient{
+	schedule.RegisterTrigger(&schedule.Trigger{
 		TaskType:         "basic",
 		TriggerInterface: basic,
 	})

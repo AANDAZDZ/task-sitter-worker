@@ -9,4 +9,5 @@ type TaskBase struct {
 	RetryNum      int32
 	RetryInterval int64
 	BizName       string
+	RateInterval  int64
 }
