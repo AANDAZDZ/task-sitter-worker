@@ -16,6 +16,7 @@ message ScheduleTaskReq {
   int32   RetryNum      = 6;
   int64   RetryInterval = 7;
   string  BizName       = 8;
+  int64   RateInterval  = 9;
 }
 
 message ScheduleTaskResp {
